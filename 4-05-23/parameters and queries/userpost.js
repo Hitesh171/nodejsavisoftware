@@ -1,27 +1,15 @@
 const express=require('express');
-const bodyParser=require("body-parser");
 const data=require('./data');
 const app=express();
-app.use(bodyPareser.urlencoded({
-    extended:true
-}));
-app.get('/users',(req,res)=>{
-    res.json(data);
+
+
+app.post('/users',(req,res)=>{
+    const name=req.data.name;
+    const college=req.data.college;
+
+    return res.json(name,college);
 });
-app.get('/users/:id',(req,res)=>{
-    const id=req.params.id;
-    const user=data.find(user=>user.id===Number(id));
-    if(!user){
-        return res.json({msg:"user is not avaliable"});
-    }
-    return res.json(user);
-});
-app.post("/",function(req,res){
-    var num1=Number(req.body.num1);
-    var num2=Number(req.body.num2);
-    var result=num1+num2;
-    res.send("addition-"+result);
-});
+
 app.listen(8000,()=>{
     console.log('successful run')
 });
